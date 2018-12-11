@@ -54,14 +54,46 @@
 		D06DC10121BECCFF00CF99AB /* curiOsity */ = {
 			isa = PBXGroup;
 			children = (
+				D06DC11421BED66900CF99AB /* Controller */,
+				D06DC11621BFBBCD00CF99AB /* Model */,
+				D06DC11521BED67700CF99AB /* View */,
+				D06DC11721BFBBD600CF99AB /* Supporting */,
+			);
+			path = curiOsity;
+			sourceTree = "<group>";
+		};
+		D06DC11421BED66900CF99AB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
 				D06DC10221BECCFF00CF99AB /* AppDelegate.swift */,
 				D06DC10421BECCFF00CF99AB /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		D06DC11521BED67700CF99AB /* View */ = {
+			isa = PBXGroup;
+			children = (
 				D06DC10621BECCFF00CF99AB /* Main.storyboard */,
 				D06DC10921BECD0300CF99AB /* Assets.xcassets */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D06DC11621BFBBCD00CF99AB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D06DC11721BFBBD600CF99AB /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
 				D06DC10B21BECD0300CF99AB /* LaunchScreen.storyboard */,
 				D06DC10E21BECD0300CF99AB /* Info.plist */,
 			);
-			path = curiOsity;
+			path = Supporting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,7 +316,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RQUGBU2U53;
-				INFOPLIST_FILE = curiOsity/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/curiOsity/Supporting/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,7 +335,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RQUGBU2U53;
-				INFOPLIST_FILE = curiOsity/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/curiOsity/Supporting/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
