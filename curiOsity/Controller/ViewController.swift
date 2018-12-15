@@ -82,6 +82,23 @@ class ViewController: UIViewController {
         //se actualizan las etiquetas y la barra de progreso
         self.labelScore.text = "Puntucación: \(self.currentScore)"
         self.labelQuestionNumber.text = "\(self.currentQuestionID)\\\(self.factory.questionsBank.questions.count)"
+        
+        /*
+        //pregress bar: establecemos el ancho de la vista de la barra de progreso a lo siguiente:
+        //primero dividimos el ancho total de la pantalla entre el número de preguntas que hay en el banco de preguntas
+        //y luego lo multiplicamos por el numero de pregunta actual de tal forma que cuando la pregunta actual sea igual al número de preguntas total el ancho de la vista será igual al ancho de la pantalla
+        //nota: recuerda que este ancho tiene una restricción muy fuerte en el storyboard que está definido en 30 puntos, por eso no funciona.
+        self.viewProgressBar.frame.size.width = (self.view.frame.size.width/CGFloat(self.factory.questionsBank.questions.count))*CGFloat(self.currentQuestionID)
+         */
+        
+        //Actualizació: modificamos el ancho de la vista barra de estado definiendo un identificador para su constraint width en el story board llamada y la llamamos progressBarWidth, así podemos acceder a esta constraint desde el código
+        //recorremos las constraint de la vista hasta dar con la que queremos
+        for c in self.viewProgressBar.constraints {
+            if c.identifier == "progressBarWidth" {
+                //ahora en lugar de modificar el ancho de todo el frame de la vista simplimente asigno un valor constante al constraints del ancho de la vista
+                c.constant = (self.view.frame.size.width/CGFloat(self.factory.questionsBank.questions.count))*CGFloat(self.currentQuestionID)
+            }
+        }
     }
 
     // MARK: - BOTONES DE ACCIÓN
