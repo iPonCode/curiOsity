@@ -62,9 +62,9 @@
 		D06DC10121BECCFF00CF99AB /* curiOsity */ = {
 			isa = PBXGroup;
 			children = (
-				D06DC11421BED66900CF99AB /* Controller */,
 				D06DC11621BFBBCD00CF99AB /* Model */,
 				D06DC11521BED67700CF99AB /* View */,
+				D06DC11421BED66900CF99AB /* Controller */,
 				D06DC11721BFBBD600CF99AB /* Supporting */,
 			);
 			path = curiOsity;

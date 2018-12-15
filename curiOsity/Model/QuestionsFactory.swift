@@ -89,7 +89,8 @@ class QuestionsFactory {
     
     // esta función devolverá la pregunta que se encuentre en el índice que recibe y el índice está fuera de rango devuelve nil, por eso el parámetro de retorno Question? es opcional
     func getQuestionAt (index : Int) -> Question? {
-        if index<0 || index>self.questionsBank.questions.count { //comprobamos que el índice recibido no esté fuera de rango y si lo está devolvemos nil
+        print(">>> VALOR DE index es \(index) y el valor de COUNT es \(self.questionsBank.questions.count)")
+        if index<0 || index>self.questionsBank.questions.count - 1 { //comprobamos que el índice recibido no esté fuera de rango y si lo está devolvemos nil
             return nil
         } else {
             // si el índice está dentro del rago de elementos del array devolvermos el valor del elemento en esa posición que será un objeto de tipo Question
