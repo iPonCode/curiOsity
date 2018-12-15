@@ -49,6 +49,8 @@ class ViewController: UIViewController {
         self.factory.questionsBank.questions.shuffle()
         //genero la primera pregunta
         askNextQuestion()
+        //llamamos a updateUIElement para poner a cero las etiquetas
+        updateUIElements()
     }
     
     func askNextQuestion () {
@@ -66,6 +68,20 @@ class ViewController: UIViewController {
     
     func GameOver() {
         //se llama cuando no hay mas preguntas
+        //ALERTA
+        let alert = UIAlertController(title: "Fin de partida", message: "Has acertado \(self.correctQuestionAnswered) de \(self.currentQuestionID). Inténtalo de nuevo", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Vale", style: .default) { (_) in
+            self.startGame()
+        }
+        alert.addAction(okAction) //vinculamos la alerta con la acción
+        present(alert, animated: true, completion: nil) //mostramos el viewcontroller en pantalla
+        
+    }
+    
+    func updateUIElements() {
+        //se actualizan las etiquetas y la barra de progreso
+        self.labelScore.text = "Puntucación: \(self.currentScore)"
+        self.labelQuestionNumber.text = "\(self.currentQuestionID)\\\(self.factory.questionsBank.questions.count)"
     }
 
     // MARK: - BOTONES DE ACCIÓN
@@ -108,14 +124,28 @@ class ViewController: UIViewController {
             isCorrect = (self.currentQuestion.answer == false) //si esta comparación es verdadera (true) entonces que se la respuesta correcta era false y el usuario pulsó Mentira y si es falsa (false) entonces es que la respuesta era true y el usaurio pulsó Verdad
         }
         
+        //esto es para la alerta que mostraremos más abajo
+        var tituloAlerta = "Ohoo.. has fallado" //inicializamos por defecto el título de la alarta como si hubiera fallado y luego comprobamos si ha acertado sobreescribimos el valor del título por el mensaje cuando ha acertado
+
         //ahora comprobamos si el usuario ha contestado correctamente
         if (isCorrect) { // HA ACERTADO
             self.correctQuestionAnswered += 1 //incrementamos el valor de la propiedad que lleva la cuenta del número de preguntas acertadas
-        } else { // HA FALLADO
-            //aquí lo que queramos hacer cuando el jugador responde y falla
+            tituloAlerta = "Enhorabuena, has acertado!"
+            self.currentScore += 100*self.correctQuestionAnswered //si la respuesta es correcta sumamos puntos al Score del usuario, cuantas más preguntas correctas haya acertado más puntos conseguirá
         }
-        //independientemente de si acierta o falla
-        askNextQuestion() //generamos la siguiente pregunta
+        
+        //ALERTA
+        let alert = UIAlertController(title: tituloAlerta, message: self.currentQuestion.explanation, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Vale", style: .default) {(_) in
+            //en el completion handler del botón de la alerta metemos la llamada a la función askNextQuestion siendo necesario hacerlo de forma explícita con la palabra reservada self.
+            //independientemente de si acierta o falla
+            self.askNextQuestion() //generamos la siguiente pregunta
+            self.updateUIElements() //actualizamo la info de las etiquetas
+        }
+        alert.addAction(okAction) //vinculamos la alerta con el botón
+        present(alert, animated: true, completion: nil) //mostramos el viewcontroller por pantalla invocando al metodo present
+        
+
     }
     
     // MARK: - BARRA DE ESTADO DE LA APLICACIÓN
