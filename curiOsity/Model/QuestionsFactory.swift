@@ -63,18 +63,19 @@ class QuestionsFactory {
         //en lugar de cargar un path vamos a usar una url y tendremos que protegerlo con la clausula do catch y utlizar try en las llamadas porque pueden generar un error
         do {
             if let url = Bundle.main.url(forResource: "QuestionsBank", withExtension: "plist") {
-            //aquí cargamos los datos en binario con un try delante
+            //aquí cargamos los datos en binario con un try delante porque puede dar erro indicandole la url
             let data = try Data(contentsOf: url) //si no tuvieramos esto dentro de un if let deberíamos pasar la url como un parámetro requerido con url! (por el error, podría fallar la extracción de datos binarios de un fichero porque el fichero esté corrupo, o porque esté protegido, etc..)
             //como es un binario, si imprimos en consola data devolverá el núemro de bytes que ocupa
-            print(data) //esto imprime 2623 bytes con el fichero plist que se está utlizando en las pruebas
-                
-            //aquí tenemos que convertir el fichero data primero en un objeto (una estructura) que es el array QuestionsBank y automáticamente solo con procesarla como QuestionsBank voy a obetener un array de questions (porque estamos utilizando Codable
+            print("Extracción de datos bienarios OK \(data)") //esto imprime 2623 bytes con el fichero plist que se está utlizando en las pruebas
+            print("url leída:\n \(url)")
+
+            //aquí tenemos que convertir el fichero data primero en un objeto (una estructura) que es el array QuestionsBank y automáticamente solo con procesarla como QuestionsBank voy a obetener un array de questions (porque estamos utilizando Codable)
             //vamos directamente a intentar extraer un objeto questionsBank desde data, utlizaremos el PropertyListDecoder
             //como la descodificación puede dar error lo protegemos con un try
-                self.questionsBank = try PropertyListDecoder().decode(QuestionsBank.self, from: data)
-                //si esto ha funcionado entonces tendremos un campo llamado questions que son las preguntas que van a ir en la factoría
-                //self.questions = questionBank.questions //cargamos las preguntas
-                //Actualización: me cargo la línea anterior porque ahora trabajamos con la variable de tipo estructura QuestionsBank y no con la variable questions que era un array de objetos de tipo Question
+            self.questionsBank = try PropertyListDecoder().decode(QuestionsBank.self, from: data)
+            //si esto ha funcionado entonces tendremos un campo llamado questions que son las preguntas que van a ir en la factoría
+            //self.questions = questionBank.questions //cargamos las preguntas
+            //Actualización: me cargo la línea anterior porque ahora trabajamos con la variable de tipo estructura QuestionsBank y no con la variable questions que era un array de objetos de tipo Question
             }
         } catch {
             print(error)
@@ -82,7 +83,7 @@ class QuestionsFactory {
         
         if self.questionsBank == nil { //si entra aquí la apilcación peta (por ejemplo, no encuentra o no existe archivo QuestionsBank.plist
             //justo antes del error en tiempo de ejecución imprimiríamos este mensaje por consola
-            print(">>> NO SE HA PODIDO INICIALIZAR questionBank <<<")
+            print(">>> ERROR FATAL! <<< \n>>> NO SE HA PODIDO INICIALIZAR la variable questionBank de tipo estructura QuestionBank <<<")
         }
 
     }

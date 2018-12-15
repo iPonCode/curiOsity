@@ -26,10 +26,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var imageViewLogoApp: UIImageView!
     
     
-    //estas son variable para el juego
-    var currentScore = 0
-    var currentQuestionID = 0
-    var correctQuestionAnswered = 0
+    //estas son variable para el juego, también se asignarán en StartGame()
+    var currentScore : Int = 0
+    var currentQuestionID : Int = 0
+    var correctQuestionAnswered : Int = 0
+    var QuicklyMode : Bool = false //esto es para pasárselo como parámetro :interaction a ProgressHUD
     
     var currentQuestion : Question! //la marcamos como requerida para no tener que hacer un constructor e inicializarla porque estamos seguros de que cuando arranque el juego directamente inicilizaré la primera pregunta
     let factory = QuestionsFactory()
@@ -48,6 +49,16 @@ class ViewController: UIViewController {
         currentScore = 0
         currentQuestionID = 0
         correctQuestionAnswered = 0
+        //por defecto el usuario deberá esperar a que se muestre la alerta para poder responder la siguente pregunta
+        QuicklyMode = true //si lo establecemos en true el juego es mas rápido ya que el usuario no tiene que esperar a que desaparezca la alerta (con ProgressHUD) para volver a pulsar el botón
+        //mostramos un mensaje
+        /*
+         ProgressHUD.showSuccess("""
+            Nueva partida!
+            Barajando
+            Mezclado ok
+            """, interaction: QuicklyMode)
+        */
         //antes de nada barajamos o mezclamos el array de preguntas para que cada juego se hagan preguntas en distinto orden, no siempre tendrás el mismo orden las preguntas, en cada partida el orden cambiará
         self.factory.questionsBank.questions.shuffle()
         //genero la primera pregunta
@@ -65,19 +76,22 @@ class ViewController: UIViewController {
         } else { //si no me ha dejado crear una nueva pregunta
             //si newQuestion es nil entrará aquí y quiere decir que ya se han hecho todas las preguntas
             //así que sería Fin del Juego, habría que llamar a la función GameOver
-            GameOver()
+            gameOver()
         }
     }
     
-    func GameOver() {
+    func gameOver() {
         //se llama cuando no hay mas preguntas
         //ALERTA
-        let alert = UIAlertController(title: "Fin de partida", message: "Has acertado \(self.correctQuestionAnswered) de \(self.currentQuestionID). Inténtalo de nuevo", preferredStyle: .alert)
+        let alerta = UIAlertController(title: "GAME OVER", message: """
+            Has acertado \(self.correctQuestionAnswered) de \(self.currentQuestionID), y has conseguido acumular \(self.currentScore) puntos\n Inténtalo de nuevo!
+            """, preferredStyle: .alert)
+        //let alert = UIAlertController(title: "Fin de partida", message: "Has acertado \(self.correctQuestionAnswered) de \(self.currentQuestionID). Inténtalo de nuevo", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Vale", style: .default) { (_) in
             self.startGame()
         }
-        alert.addAction(okAction) //vinculamos la alerta con la acción
-        present(alert, animated: true, completion: nil) //mostramos el viewcontroller en pantalla
+        alerta.addAction(okAction) //vinculamos la alerta con la acción
+        present(alerta, animated: true, completion: nil) //mostramos el viewcontroller en pantalla
         
     }
     
@@ -105,30 +119,42 @@ class ViewController: UIViewController {
     }
     
     func analyzeResult (isCorrect : Bool) {
-        //esto es para la alerta que mostraremos más abajo (comentamos xq ya no utlizamos Alertas del sistema
-        var tituloAlerta = ""
         
-        //ALERTA (comentamos esta sección porque dejamos de utilizar UIAlert)
-        
-        //ahora comprobamos si el usuario ha contestado correctamente
+        //comprobamos si el usuario ha contestado correctamente
         //var image : UIImage
-        if (isCorrect) { // HA ACERTADO
+        if (isCorrect) { // EL JUGADOR HA ACERTADO
             self.correctQuestionAnswered += 1 //incrementamos el valor de la propiedad que lleva la cuenta del número de preguntas acertadas
             self.currentScore += 100*self.correctQuestionAnswered //si la respuesta es correcta sumamos puntos al Score del usuario, cuantas más preguntas correctas haya acertado más puntos conseguirá
-            //ProgressHUD.showSuccess("Enhorabuena, has acertado!")
-            //ProgressHUD.showSuccess()
-            print("Enhorabuena, has acertado!")
-            print(self.currentQuestion.explanation)
+            print("""
+            Enhorabuena!
+            Has acertado
+            \(self.currentQuestion.explanation)
+            """)
             //image.init(named: "logo-curiOsijty-transp-success")
             //imageViewLogoApp.image = image
-            tituloAlerta = "Enhorabuena, has acertado!" //ya no usamos las alertas del sistema
-        } else { //HA FALLADO
+            //mostramos alerta que desaparecerá en unos instantes pero si el usuario pulsa algún botón desaparece inmediatamente
+            ProgressHUD.showSuccess("""
+            Enhorabuena!
+            Has acertado
+            \(self.currentQuestion.explanation)
+            """, interaction: QuicklyMode)
+        } else { // EL JUGADOR HA FALLADO
             //ProgressHUD.showError(self.currentQuestion.explanation)
-            print("Has fallado")
-            print(self.currentQuestion.explanation)
-            
-            tituloAlerta = "Ohoo.. has fallado"
+            print("""
+            Ohoo.. que lástima
+            Has fallado
+            \(self.currentQuestion.explanation)
+            """)
+            //actualizamos el titulo de la alerta con el mensaje que corresponde
+            ProgressHUD.showError("""
+            Ohoo.. que lástima
+            Has fallado
+            \(self.currentQuestion.explanation)
+            """, interaction: QuicklyMode)
         }
+        
+        //ALERTA (comentamos esta sección porque dejamos de utilizar UIAlert)
+        /*
         let alert = UIAlertController(title: tituloAlerta, message: self.currentQuestion.explanation, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Vale", style: .default) {(_) in
             //en el completion handler del botón de la alerta metemos la llamada a la función askNextQuestion siendo necesario hacerlo de forma explícita con la palabra reservada self.
@@ -138,10 +164,10 @@ class ViewController: UIViewController {
         }
         alert.addAction(okAction) //vinculamos la alerta con el botón
         present(alert, animated: true, completion: nil) //mostramos el viewcontroller por pantalla invocando al metodo present
-        /*
+        */
+        //independientemente de si acierta o falla
         self.askNextQuestion() //generamos la siguiente pregunta
         self.updateUIElements() //actualizamo la info de las etiquetas
-        */
     }
 
     // MARK: - BOTONES DE ACCIÓN
