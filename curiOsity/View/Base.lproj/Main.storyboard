@@ -153,6 +153,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="imageViewLogoApp" destination="i5h-0e-hGO" id="Y8H-PC-BIZ"/>
                         <outlet property="labelQuestion" destination="OJ1-JY-aUe" id="NnP-B1-fMM"/>
                         <outlet property="labelQuestionNumber" destination="AiS-d2-sA7" id="Ofv-Cz-xbN"/>
                         <outlet property="labelScore" destination="NHh-MF-MSL" id="S6U-Z1-7dy"/>

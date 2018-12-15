@@ -16,6 +16,8 @@
 		D06DC10821BECCFF00CF99AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D06DC10621BECCFF00CF99AB /* Main.storyboard */; };
 		D06DC10A21BECD0300CF99AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D06DC10921BECD0300CF99AB /* Assets.xcassets */; };
 		D06DC10D21BECD0300CF99AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D06DC10B21BECD0300CF99AB /* LaunchScreen.storyboard */; };
+		D0FB380521C5367900DBA6EF /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D0FB380221C5367800DBA6EF /* ProgressHUD.bundle */; };
+		D0FB380621C5367900DBA6EF /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D0FB380421C5367900DBA6EF /* ProgressHUD.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,10 @@
 		D06DC10921BECD0300CF99AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D06DC10C21BECD0300CF99AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D06DC10E21BECD0300CF99AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0FB380121C5367700DBA6EF /* curiOsity-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "curiOsity-Bridging-Header.h"; sourceTree = "<group>"; };
+		D0FB380221C5367800DBA6EF /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
+		D0FB380321C5367800DBA6EF /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
+		D0FB380421C5367900DBA6EF /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +110,10 @@
 				D06DC10B21BECD0300CF99AB /* LaunchScreen.storyboard */,
 				D06DC10E21BECD0300CF99AB /* Info.plist */,
 				D046310021C3D54D00F76826 /* QuestionsBank.plist */,
+				D0FB380221C5367800DBA6EF /* ProgressHUD.bundle */,
+				D0FB380321C5367800DBA6EF /* ProgressHUD.h */,
+				D0FB380421C5367900DBA6EF /* ProgressHUD.m */,
+				D0FB380121C5367700DBA6EF /* curiOsity-Bridging-Header.h */,
 			);
 			path = Supporting;
 			sourceTree = "<group>";
@@ -140,6 +150,7 @@
 				TargetAttributes = {
 					D06DC0FE21BECCFF00CF99AB = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -169,6 +180,7 @@
 				D046310121C3D54D00F76826 /* QuestionsBank.plist in Resources */,
 				D06DC10D21BECD0300CF99AB /* LaunchScreen.storyboard in Resources */,
 				D06DC10A21BECD0300CF99AB /* Assets.xcassets in Resources */,
+				D0FB380521C5367900DBA6EF /* ProgressHUD.bundle in Resources */,
 				D06DC10821BECCFF00CF99AB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -180,6 +192,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0FB380621C5367900DBA6EF /* ProgressHUD.m in Sources */,
 				D06DC10521BECCFF00CF99AB /* ViewController.swift in Sources */,
 				D04630FF21C2D47200F76826 /* QuestionsFactory.swift in Sources */,
 				D04630FD21C2D15300F76826 /* Question.swift in Sources */,
@@ -330,6 +343,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RQUGBU2U53;
 				INFOPLIST_FILE = "$(SRCROOT)/curiOsity/Supporting/Info.plist";
@@ -340,6 +354,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = es.ipon.curiOsity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "curiOsity/Supporting/curiOsity-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -349,6 +365,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RQUGBU2U53;
 				INFOPLIST_FILE = "$(SRCROOT)/curiOsity/Supporting/Info.plist";
@@ -359,6 +376,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = es.ipon.curiOsity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "curiOsity/Supporting/curiOsity-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

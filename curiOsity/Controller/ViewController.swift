@@ -22,6 +22,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var labelScore: UILabel!
     //iremos modificando el tamaño de la vista con la barra de progreso a medida que avance el juego
     @IBOutlet weak var viewProgressBar: UIView!
+    //iremos cambiando la imagen del logo y jugando con su transparencia según acierte o falle las preguntas el jugador
+    @IBOutlet weak var imageViewLogoApp: UIImageView!
+    
     
     //estas son variable para el juego
     var currentScore = 0
@@ -100,6 +103,46 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    func analyzeResult (isCorrect : Bool) {
+        //esto es para la alerta que mostraremos más abajo (comentamos xq ya no utlizamos Alertas del sistema
+        var tituloAlerta = ""
+        
+        //ALERTA (comentamos esta sección porque dejamos de utilizar UIAlert)
+        
+        //ahora comprobamos si el usuario ha contestado correctamente
+        //var image : UIImage
+        if (isCorrect) { // HA ACERTADO
+            self.correctQuestionAnswered += 1 //incrementamos el valor de la propiedad que lleva la cuenta del número de preguntas acertadas
+            self.currentScore += 100*self.correctQuestionAnswered //si la respuesta es correcta sumamos puntos al Score del usuario, cuantas más preguntas correctas haya acertado más puntos conseguirá
+            //ProgressHUD.showSuccess("Enhorabuena, has acertado!")
+            //ProgressHUD.showSuccess()
+            print("Enhorabuena, has acertado!")
+            print(self.currentQuestion.explanation)
+            //image.init(named: "logo-curiOsijty-transp-success")
+            //imageViewLogoApp.image = image
+            tituloAlerta = "Enhorabuena, has acertado!" //ya no usamos las alertas del sistema
+        } else { //HA FALLADO
+            //ProgressHUD.showError(self.currentQuestion.explanation)
+            print("Has fallado")
+            print(self.currentQuestion.explanation)
+            
+            tituloAlerta = "Ohoo.. has fallado"
+        }
+        let alert = UIAlertController(title: tituloAlerta, message: self.currentQuestion.explanation, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Vale", style: .default) {(_) in
+            //en el completion handler del botón de la alerta metemos la llamada a la función askNextQuestion siendo necesario hacerlo de forma explícita con la palabra reservada self.
+            //independientemente de si acierta o falla
+            self.askNextQuestion() //generamos la siguiente pregunta
+            self.updateUIElements() //actualizamo la info de las etiquetas
+        }
+        alert.addAction(okAction) //vinculamos la alerta con el botón
+        present(alert, animated: true, completion: nil) //mostramos el viewcontroller por pantalla invocando al metodo present
+        /*
+        self.askNextQuestion() //generamos la siguiente pregunta
+        self.updateUIElements() //actualizamo la info de las etiquetas
+        */
+    }
 
     // MARK: - BOTONES DE ACCIÓN
     //ya definimos en el inspector de atributos tag=1 para el botón verdadero y tag=2 para falso y a continuación creamos la acción invocable por cualquier botón UIButton. conectamos los dos botones a este método arrastrando con ctrl pulsado y soltando dentro de la función
@@ -137,32 +180,12 @@ class ViewController: UIViewController {
         var isCorrect : Bool
         if sender.tag == 1 { //el jugados ha pulsado VERDAD (ya asignamos previamente en los atributos del botón el Verdad el tag = 1)
             isCorrect = (self.currentQuestion.answer == true) //si esta comparación es verdadera (true) entonces que se la respuesta correcta era true y el usuario pulsó Verdad y si es falsa (false) entonces es que la respuesta era false y el usaurio pulsó Mentira
-        } else { //el jugador ha pulsado MENTIRA (ya asignamos previamente en los atributos del botón el Verdad el tag = 2)
+        } else { //el jugador NO ha pulsado VERDAD y asumimos que ha pulsado MENTIRA (ya asignamos previamente en los atributos del botón el Verdad el tag = 2)
             isCorrect = (self.currentQuestion.answer == false) //si esta comparación es verdadera (true) entonces que se la respuesta correcta era false y el usuario pulsó Mentira y si es falsa (false) entonces es que la respuesta era true y el usaurio pulsó Verdad
         }
         
-        //esto es para la alerta que mostraremos más abajo
-        var tituloAlerta = "Ohoo.. has fallado" //inicializamos por defecto el título de la alarta como si hubiera fallado y luego comprobamos si ha acertado sobreescribimos el valor del título por el mensaje cuando ha acertado
-
-        //ahora comprobamos si el usuario ha contestado correctamente
-        if (isCorrect) { // HA ACERTADO
-            self.correctQuestionAnswered += 1 //incrementamos el valor de la propiedad que lleva la cuenta del número de preguntas acertadas
-            tituloAlerta = "Enhorabuena, has acertado!"
-            self.currentScore += 100*self.correctQuestionAnswered //si la respuesta es correcta sumamos puntos al Score del usuario, cuantas más preguntas correctas haya acertado más puntos conseguirá
-        }
-        
-        //ALERTA
-        let alert = UIAlertController(title: tituloAlerta, message: self.currentQuestion.explanation, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Vale", style: .default) {(_) in
-            //en el completion handler del botón de la alerta metemos la llamada a la función askNextQuestion siendo necesario hacerlo de forma explícita con la palabra reservada self.
-            //independientemente de si acierta o falla
-            self.askNextQuestion() //generamos la siguiente pregunta
-            self.updateUIElements() //actualizamo la info de las etiquetas
-        }
-        alert.addAction(okAction) //vinculamos la alerta con el botón
-        present(alert, animated: true, completion: nil) //mostramos el viewcontroller por pantalla invocando al metodo present
-        
-
+        //Ahora que sabemos si ha acertado o no la pregunta, llamamos a analyzeResult pasándole isCorrect
+        analyzeResult(isCorrect: isCorrect)
     }
     
     // MARK: - BARRA DE ESTADO DE LA APLICACIÓN
