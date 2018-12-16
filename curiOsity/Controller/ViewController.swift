@@ -52,11 +52,12 @@ class ViewController: UIViewController {
         //por defecto el usuario deberá esperar a que se muestre la alerta para poder responder la siguente pregunta
         QuicklyMode = true //si lo establecemos en true el juego es mas rápido ya que el usuario no tiene que esperar a que desaparezca la alerta (con ProgressHUD) para volver a pulsar el botón
  
-        // ALERTA de inicio de partida
+        // ALERTA de inicio de partida (retirada porque no es necesaria y tapa por uno instantes el logo de la aplicación al inicio que es justo cuando interesa que se muestre para darle continuidad al logo del launch screen, se deja comentada.
+        /*
         ProgressHUD.showSuccess("""
             \(NSLocalizedString("start.game.shuffle.questions", comment: "MessageWelcome"))
             """, interaction: QuicklyMode)
- 
+        */
         //Antes de nada barajamos o mezclamos el array de preguntas para que cada juego se hagan preguntas en distinto orden, no siempre tendrás el mismo orden las preguntas, en cada partida el orden cambiará
         self.factory.questionsBank.questions.shuffle()
 
