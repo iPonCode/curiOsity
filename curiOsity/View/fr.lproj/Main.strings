@@ -1,0 +1,15 @@
+
+/* Class = "UILabel"; text = "00 / 99"; ObjectID = "AiS-d2-sA7"; */
+"AiS-d2-sA7.text" = "00 / 99";
+
+/* Class = "UIButton"; normalTitle = "That's true"; ObjectID = "KG2-mx-w3p"; */
+"KG2-mx-w3p.normalTitle" = "C'est Vrai";
+
+/* Class = "UILabel"; text = "Score: 999"; ObjectID = "NHh-MF-MSL"; */
+"NHh-MF-MSL.text" = "Marquer: 999";
+
+/* Class = "UILabel"; text = "Question?"; ObjectID = "OJ1-JY-aUe"; */
+"OJ1-JY-aUe.text" = "¿La question?";
+
+/* Class = "UIButton"; normalTitle = "That's a lie"; ObjectID = "XIq-oF-wck"; */
+"XIq-oF-wck.normalTitle" = "C'est Faux";

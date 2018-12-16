@@ -1,0 +1,35 @@
+/* 
+  Localizable.strings
+  curiOsity
+
+  Created by superw on 16/12/2018.
+  Copyright © 2018 superw. All rights reserved.
+*/
+
+//ENGLISH
+
+/* ViewController */
+
+/* ALERT of Start Game */
+"start.game.shuffle.questions" = "New game!\nShuffling questions\nMixed ok\nLets go!";
+
+/* ALERT of analyze Result */
+"analyze.result.isCorrect.true" = "Congratulations! you're right";
+"analyze.result.isCorrect.false" = "Ohoo.. pity, you failed";
+
+/* ALERT of Game Over */
+"game.over.alert.title" = "GAME OVER";
+"game.over.alert.message.1" = "You have answered correctly";
+"game.over.alert.message.2" = "of";
+"game.over.alert.message.3" = "questions";
+"game.over.alert.message.4" = "And you have achieved a score of";
+"game.over.alert.message.5" = "points";
+"game.over.alert.message.6" = "Try again!";
+"game.over.alert.button" = "Lets go!";
+
+/* LABELS */
+"label.score" = "Score";
+
+
+
+
